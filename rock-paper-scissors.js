@@ -21,14 +21,22 @@ function playRound(humanChoice, computerChoice){
     let computerLower = computerChoice.toLowerCase();
 
     const result = document.querySelector(".round-result")
+    const pScore = document.querySelector(".pScore");
+    const cScore = document.querySelector(".cScore");
+
+    let pScoreText = pScore.textContent;
+    let cScoreText = cScore.textContent;
     switch(humanLower){
         
         case "rock":
             if (computerLower === "paper"){
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
+                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
+                
             }
             else if(computerLower === "scissors"){
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
+                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
             }
             else{
                 result.textContent = "You tie! " + humanLower + " is equal to " + computerLower;
@@ -42,9 +50,11 @@ function playRound(humanChoice, computerChoice){
             }
             else if(computerLower === "scissors"){
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
+                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
             }
             else{
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
+                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
                 
             }
             break;
@@ -52,6 +62,7 @@ function playRound(humanChoice, computerChoice){
         case "scissors":
             if (computerLower === "paper"){
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
+                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
                 
             }
             else if(computerLower === "scissors"){
@@ -60,6 +71,7 @@ function playRound(humanChoice, computerChoice){
             }
             else{
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
+                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
                 
             }
             break;
