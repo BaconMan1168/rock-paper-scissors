@@ -70,9 +70,13 @@ function playRound(humanChoice, computerChoice){
 
 
 function playGame(){
-    for (let i = 0; i < 5; i++){
-        playRound(getHumanChoice(), getComputerChoice());
-    }
+    const rock = document.createElement("button");
+    const paper = document.createElement("button");
+    const scissors = document.createElement("button");
+
+    rock.addEventListener("click", playRound("rock", getComputerChoice()));
+    paper.addEventListener("click", playRound("paper", getComputerChoice()));
+    scissors.addEventListener("click", playRound("scissors", getComputerChoice()));
 }
 
 
