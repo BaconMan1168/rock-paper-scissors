@@ -13,10 +13,14 @@ function getComputerChoice(){
 }
 
 
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
-
+let gameOver = false;
 function playRound(humanChoice, computerChoice){
+    
+    if (gameOver){
+        return;
+    }
     let humanLower = humanChoice.toLowerCase();
     let computerLower = computerChoice.toLowerCase();
 
@@ -24,19 +28,20 @@ function playRound(humanChoice, computerChoice){
     const pScore = document.querySelector(".pScore");
     const cScore = document.querySelector(".cScore");
 
-    let pScoreText = pScore.textContent;
-    let cScoreText = cScore.textContent;
+    
     switch(humanLower){
         
         case "rock":
             if (computerLower === "paper"){
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
-                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
+                computerScore++;
+                cScore.textContent = `Computer Score: ${computerScore}`;
                 
             }
             else if(computerLower === "scissors"){
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
-                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
+                playerScore++;
+                pScore.textContent = `Player Score: ${playerScore}`;
             }
             else{
                 result.textContent = "You tie! " + humanLower + " is equal to " + computerLower;
@@ -50,11 +55,13 @@ function playRound(humanChoice, computerChoice){
             }
             else if(computerLower === "scissors"){
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
-                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
+                computerScore++;
+                cScore.textContent = `Computer Score: ${computerScore}`;
             }
             else{
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
-                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
+                playerScore++;
+                pScore.textContent = `Player Score: ${playerScore}`;
                 
             }
             break;
@@ -62,7 +69,8 @@ function playRound(humanChoice, computerChoice){
         case "scissors":
             if (computerLower === "paper"){
                 result.textContent = "You Win! " + humanLower + " beats " + computerLower;
-                pScore.textContent = pScoreText.slice(0, pScoreText.length - 1) + (+pScore.textContent.slice(-1) + 1);
+                playerScore++;
+                pScore.textContent = `Player Score: ${playerScore}`;
                 
             }
             else if(computerLower === "scissors"){
@@ -71,10 +79,18 @@ function playRound(humanChoice, computerChoice){
             }
             else{
                 result.textContent = "You Lose! " + computerLower + " beats " + humanLower;
-                cScore.textContent = cScoreText.slice(0, cScoreText.length - 1) + (+cScore.textContent.slice(-1) + 1);
+                computerScore++;
+                cScore.textContent = `Computer Score: ${computerScore}`;
                 
             }
             break;
+    }
+
+    if (playerScore >= 5 || computerScore >= 5){
+        gameOver = true;
+        const winner = playerScore >= 5 ? "Player" : "Computer";
+        result.textContent = `${winner} wins the game!`;
+        result.style.fontWeight = "bold";
     }
 }
 
@@ -96,3 +112,5 @@ container.appendChild(scissors);
 rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
 paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
 scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
+
+ 
